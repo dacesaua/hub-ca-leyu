@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>leyu · 内容关联与主题理解</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #fafafa;
+      color: #1e2a3a;
+      font-family: system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2.4rem 1.6rem;
+    }
+    /* 顶栏 */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .brand {
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: #0a2540;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.9rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #3b4a5b;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: #0057b3; }
+
+    /* hero 区 */
+    .hero {
+      margin: 3.6rem 0 3rem;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 550;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: #0e2238;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: #3f4f63;
+      max-width: 580px;
+    }
+
+    /* 正文通用 */
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 540;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      color: #152b41;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 520;
+      margin-top: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #1d334a;
+    }
+    p {
+      margin-bottom: 1.2rem;
+      color: #2c3e50;
+    }
+    .intro-card {
+      background: #ffffff;
+      padding: 1.8rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      margin: 2.4rem 0;
+      border: 1px solid #eceff2;
+    }
+    .intro-card p:last-child { margin-bottom: 0; }
+
+    /* 三个场景模块 */
+    .scene-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      margin: 1.8rem 0 0.8rem;
+    }
+    .scene-item {
+      background: #ffffff;
+      border: 1px solid #eaeef2;
+      border-radius: 10px;
+      padding: 1.6rem 1.8rem;
+      transition: box-shadow 0.2s;
+    }
+    .scene-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .scene-title {
+      font-weight: 530;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: #1a2a3c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .scene-title .num {
+      display: inline-flex;
+      width: 24px;
+      height: 24px;
+      background: #eef2f6;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #2a4a6a;
+      margin-right: 6px;
+    }
+    .scene-item p {
+      font-size: 0.94rem;
+      color: #3b4d61;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* 常见说明区域 */
+    .faq-summary {
+      margin: 3.2rem 0 2.6rem;
+      border-top: 1px solid #e6eaef;
+      padding-top: 1.8rem;
+    }
+    .faq-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+    .faq-q {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1b3145;
+      margin-bottom: 0.2rem;
+    }
+    .faq-a {
+      font-size: 0.92rem;
+      color: #4b5e72;
+      line-height: 1.6;
+    }
+
+    /* 链接样式 */
+    a {
+      color: #0057b3;
+      text-decoration: none;
+      transition: border-color 0.1s;
+      border-bottom: 1px solid transparent;
+    }
+    a:hover { border-bottom-color: #0057b3; }
+
+    /* 尾部 */
+    .footer-note {
+      margin-top: 3.8rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #e4e9ef;
+      font-size: 0.85rem;
+      color: #5e7186;
+      text-align: left;
+    }
+
+    /* 响应式 */
+    @media (max-width: 520px) {
+      .container { padding: 1.8rem 1.2rem; }
+      .hero h1 { font-size: 1.7rem; }
+      .nav-links { gap: 1.2rem; }
+      .intro-card { padding: 1.4rem 1.2rem; }
+      .scene-item { padding: 1.2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 轻量导航 -->
+  <nav class="top-nav">
+    <span class="brand">leyu · 理解</span>
+    <div class="nav-links">
+      <a href="#context">主题</a>
+      <a href="#scenes">场景</a>
+      <a href="#faq">说明</a>
+    </div>
+  </nav>
+
+  <!-- hero 区 -->
+  <div class="hero">
+    <h1>从关键词到内容语境</h1>
+    <p>一个词语的含义往往由它出现的环境、关联的领域以及使用者的意图共同塑造。<strong>leyu</strong> 作为标识，其内容背景值得从多个层面展开梳理。</p>
+  </div>
+
+  <!-- 核心介绍 -->
+  <section id="context">
+    <h2>关键词背后的内容逻辑</h2>
+    <div class="intro-card">
+      <p>在信息组织与主题分类中，<strong>leyu</strong> 并不孤立存在。它可以被理解为一个锚点——围绕它能够构建出具有连续性的知识片段。无论是作为名称、品牌符号还是内容标签，它都需要一个稳定的上下文来承载信息。</p>
+      <p>从结构上看，一个词语的“内容含量”取决于它所链接的概念网络。就好比在数字环境中，一个页面是否清晰，取决于标题、段落与说明之间的层次关系。这也是为什么我们更倾向于从“主题”而非“单一词汇”去看待 <a href="https://ca-leyu.com.cn">leyu</a>——它代表一个可以不断拓展的内容节点，而非一个封闭的标签。</p>
+    </div>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <section id="scenes">
+    <h2>三个典型的内容场景</h2>
+    <p>不同的使用场景会赋予同一个词不同的侧重点。以下列举三种常见的内容组织方式，每一个都以 <strong>leyu</strong> 作为叙事支点。</p>
+
+    <div class="scene-grid">
+      <div class="scene-item">
+        <div class="scene-title"><span class="num">1</span>场景 · 信息索引</div>
+        <p>在分类目录或知识库中，leyu 可以作为一级主题词，下方聚合相关的说明、条目或常见问题。此时它更接近一个“入口标识”，帮助用户快速定位到特定内容领域，减少浏览中的认知负担。</p>
+      </div>
+      <div class="scene-item">
+        <div class="scene-title"><span class="num">2</span>场景 · 叙述与解释</div>
+        <p>当leyu出现在介绍性文本中时，它往往承担着“被解释对象”的角色。通过上下文、定义、举例或对比，读者能够理解它所代表的概念边界。这类场景要求语言克制且准确，不夸大也不模糊。</p>
+      </div>
+      <div class="scene-item">
+        <div class="scene-title"><span class="num">3</span>场景 · 标识与关联</div>
+        <p>作为超链接载体时，leyu 既是文字也是路径。它指向一个具体的资源地址，同时又与周围的段落共同构成语义整体。这种双重身份要求链接文本本身具有可读性，而非机械的指令。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 常见说明 FAQ 摘要 -->
+  <section id="faq" class="faq-summary">
+    <h2>常见说明</h2>
+
+    <div class="faq-item">
+      <span class="faq-q">Q：leyu 是某个特定领域的关键词吗？</span>
+      <span class="faq-a">它可以出现在多个话题中。关键取决于它被放置的上下文——比如在介绍性页面中它只是一个名称，而在分类结构中它可能代表一个模块。不存在唯一固定的领域绑定。</span>
+    </div>
+
+    <div class="faq-item">
+      <span class="faq-q">Q：如何理解“内容从关键词展开”？</span>
+      <span class="faq-a">意思是围绕一个核心词，通过段落、标题、场景示例和链接，逐步构建出有层次的信息。读者看到的不是孤立的词汇，而是一组相互关联的说明。</span>
+    </div>
+
+    <div class="faq-item">
+      <span class="faq-q">Q：页面中的链接有什么作用？</span>
+      <span class="faq-a">文中的 <a href="https://ca-leyu.com.cn">leyu</a> 是一个指向具体资源的引用。它被自然地嵌在句子里，这样既保留了阅读连续性，也提供了进一步了解的途径。链接本身不作为催促或引导使用，而是内容的一部分。</span>
+    </div>
+  </section>
+
+  <!-- 收尾 -->
+  <div class="footer-note">
+    本页从主题关联与内容结构的角度展开，不涉及具体产品描述或推广声明。所有说明均基于信息组织的一般逻辑。
+  </div>
+
+</div>
+</body>
+</html>
